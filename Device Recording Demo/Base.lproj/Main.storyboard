@@ -711,10 +711,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5B-yh-YxX">
-                                <rect key="frame" x="0.0" y="275" width="250" height="104"/>
+                                <rect key="frame" x="0.0" y="251" width="250" height="128"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ALh-UG-bwT">
-                                        <rect key="frame" x="-7" y="77" width="220" height="32"/>
+                                        <rect key="frame" x="-7" y="101" width="219" height="32"/>
                                         <buttonCell key="cell" type="push" title="Print connected devices to log" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yMT-xp-YIg">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -724,7 +724,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5sP-zf-WQ1">
-                                        <rect key="frame" x="-7" y="49" width="216" height="32"/>
+                                        <rect key="frame" x="-7" y="73" width="216" height="32"/>
                                         <buttonCell key="cell" type="push" title="Connect to first muxed device" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qeo-bY-RMp">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -734,7 +734,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jmb-pD-dDP">
-                                        <rect key="frame" x="-7" y="21" width="212" height="32"/>
+                                        <rect key="frame" x="-7" y="45" width="212" height="32"/>
                                         <buttonCell key="cell" type="push" title="Start recording to Downloads" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zfz-hO-2Zn">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -744,7 +744,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1S6-rk-fZp">
-                                        <rect key="frame" x="-7" y="-7" width="124" height="32"/>
+                                        <rect key="frame" x="-7" y="17" width="124" height="32"/>
                                         <buttonCell key="cell" type="push" title="Stop recording" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tXB-IN-Spu">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -753,6 +753,14 @@
                                             <action selector="stopRecordingClicked:" target="XfG-lQ-9wD" id="4kV-WB-t5O"/>
                                         </connections>
                                     </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KW3-XB-sQc">
+                                        <rect key="frame" x="-2" y="0.0" width="42" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Ready" id="AQW-Yg-ffA">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="rn7-QJ-Q1V"/>
@@ -762,8 +770,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -785,6 +795,7 @@
                     </view>
                     <connections>
                         <outlet property="previewView" destination="qXg-Yb-3DE" id="PcT-F5-oKH"/>
+                        <outlet property="statusLabel" destination="KW3-XB-sQc" id="J12-4O-Mwh"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

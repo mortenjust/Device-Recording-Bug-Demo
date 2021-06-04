@@ -18,6 +18,8 @@ class ViewController: NSViewController {
     var captureDevice : AVCaptureDevice {
         AVCaptureDevice.devices(for: .muxed).first!
     }
+    @IBOutlet weak var statusLabel: NSTextField!
+    
     
     @IBOutlet weak var previewView: NSView!
 
@@ -27,6 +29,8 @@ class ViewController: NSViewController {
         previewView.wantsLayer = true
         
         session.addOutput(output)
+        
+        status("Ready to connect")
     }
     
     
@@ -35,9 +39,11 @@ class ViewController: NSViewController {
             input = try AVCaptureDeviceInput(device: captureDevice)
             if session.canAddInput(input!) {
                 session.addInput(input!)
+                status("Input added")
             }
         } catch {
             print("add input: ", error.localizedDescription)
+            status("Can't add input")
         }
     }
     
@@ -45,6 +51,16 @@ class ViewController: NSViewController {
         let layer = AVCaptureVideoPreviewLayer(session: session)
         previewView.wantsLayer = true
         previewView.layer = layer
+        
+        status("Previewing")
+    }
+    
+    func status(_ s : String) {
+        DispatchQueue.main.async {
+            self.statusLabel.stringValue = s
+            print("log: ", s)
+        }
+        
     }
     
 
@@ -54,15 +70,19 @@ class ViewController: NSViewController {
     }
     
     @IBAction func connectToFirstClicked(_ sender: Any) {
+        status("Connecting...")
         addInputDevice()
         session.startRunning()
         startPreview()
     }
     
     @IBAction func startRecordingClicked(_ sender: Any) {
-        let file = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0].appendingPathComponent("Device Recorder Repro.mov")
+        status("Preparing to record...")
+        let file = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("TesterMovie.mov")
         try? FileManager.default.removeItem(at: file) // remove if already there
-        output.startRecording(to: URL(fileURLWithPath: "~/Downloads/"), recordingDelegate: self)
+        output.startRecording(to: file, recordingDelegate: self)
+        
     }
     
     @IBAction func stopRecordingClicked(_ sender: Any) {
@@ -93,7 +113,18 @@ class ViewController: NSViewController {
 extension ViewController : AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         print("finished recording to", outputFileURL.path)
+        status("Finished recording")
     }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        status("Now recording")
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, willFinishRecordingTo fileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        status("Will finish")
+    }
+    
+    
     
     
 }
