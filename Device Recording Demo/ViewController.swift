@@ -20,7 +20,6 @@ class ViewController: NSViewController {
     }
     @IBOutlet weak var statusLabel: NSTextField!
     
-    
     @IBOutlet weak var previewView: NSView!
 
     override func viewDidLoad() {
@@ -31,6 +30,54 @@ class ViewController: NSViewController {
         session.addOutput(output)
         
         status("Ready to connect")
+    }
+    
+    
+
+    
+    func status(_ s : String) {
+        DispatchQueue.main.async {
+            self.statusLabel.stringValue = s
+            print("log: ", s)
+        }
+        
+    }
+    
+
+    // MARK: UI Buttons
+    
+    // 1. Print all muxed devices
+    @IBAction func printDevicesClicked(_ sender: Any) {
+        print(AVCaptureDevice.devices(for: .muxed))
+    }
+    
+    
+    // 2. Add the first muxed device as an input and start the session
+    @IBAction func connectToFirstClicked(_ sender: Any) {
+        status("Connecting...")
+        addInputDevice()
+        session.startRunning()
+        startPreview()
+    }
+    
+    // 3. Start recording
+    @IBAction func startRecordingClicked(_ sender: Any) {
+        status("Preparing to record...")
+        let file = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("TesterMovie.mov")
+        try? FileManager.default.removeItem(at: file) // remove if already there
+        output.startRecording(to: file, recordingDelegate: self)
+        
+    }
+    
+    // 4. Stop recording
+    @IBAction func stopRecordingClicked(_ sender: Any) {
+        output.stopRecording()
+    }
+    
+    deinit {
+        print("bye")
+        session.stopRunning()
     }
     
     
@@ -54,46 +101,6 @@ class ViewController: NSViewController {
         
         status("Previewing")
     }
-    
-    func status(_ s : String) {
-        DispatchQueue.main.async {
-            self.statusLabel.stringValue = s
-            print("log: ", s)
-        }
-        
-    }
-    
-
-    // MARK: UI
-    @IBAction func printDevicesClicked(_ sender: Any) {
-        print(AVCaptureDevice.devices(for: .muxed))
-    }
-    
-    @IBAction func connectToFirstClicked(_ sender: Any) {
-        status("Connecting...")
-        addInputDevice()
-        session.startRunning()
-        startPreview()
-    }
-    
-    @IBAction func startRecordingClicked(_ sender: Any) {
-        status("Preparing to record...")
-        let file = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("TesterMovie.mov")
-        try? FileManager.default.removeItem(at: file) // remove if already there
-        output.startRecording(to: file, recordingDelegate: self)
-        
-    }
-    
-    @IBAction func stopRecordingClicked(_ sender: Any) {
-        output.stopRecording()
-    }
-    
-    deinit {
-        print("bye")
-        session.stopRunning()
-    }
-    
     
     func prepareForDeviceMonitoring(){
         print("dr: prepare")
