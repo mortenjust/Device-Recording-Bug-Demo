@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -673,7 +675,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Device_Recording_Demo" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -703,15 +705,91 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Device_Recording_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="565" height="379"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5B-yh-YxX">
+                                <rect key="frame" x="0.0" y="275" width="250" height="104"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ALh-UG-bwT">
+                                        <rect key="frame" x="-7" y="77" width="220" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Print connected devices to log" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yMT-xp-YIg">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="printDevicesClicked:" target="XfG-lQ-9wD" id="nLb-iJ-8DD"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5sP-zf-WQ1">
+                                        <rect key="frame" x="-7" y="49" width="216" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Connect to first muxed device" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qeo-bY-RMp">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="connectToFirstClicked:" target="XfG-lQ-9wD" id="nDe-Pe-wxO"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jmb-pD-dDP">
+                                        <rect key="frame" x="-7" y="21" width="212" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Start recording to Downloads" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zfz-hO-2Zn">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="startRecordingClicked:" target="XfG-lQ-9wD" id="ZYO-VX-SfX"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1S6-rk-fZp">
+                                        <rect key="frame" x="-7" y="-7" width="124" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Stop recording" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tXB-IN-Spu">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="stopRecordingClicked:" target="XfG-lQ-9wD" id="4kV-WB-t5O"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="rn7-QJ-Q1V"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="qXg-Yb-3DE">
+                                <rect key="frame" x="250" y="0.0" width="315" height="379"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="qXg-Yb-3DE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="1aE-Wy-8C0"/>
+                            <constraint firstAttribute="trailing" secondItem="qXg-Yb-3DE" secondAttribute="trailing" id="DU5-As-AeS"/>
+                            <constraint firstAttribute="bottom" secondItem="qXg-Yb-3DE" secondAttribute="bottom" id="KLL-ik-Z0I"/>
+                            <constraint firstItem="qXg-Yb-3DE" firstAttribute="leading" secondItem="m5B-yh-YxX" secondAttribute="trailing" id="Mgh-Jb-ZlR"/>
+                            <constraint firstItem="m5B-yh-YxX" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="UCC-3j-DIm"/>
+                            <constraint firstItem="m5B-yh-YxX" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="oDB-pH-qQE"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="previewView" destination="qXg-Yb-3DE" id="PcT-F5-oKH"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="-62" y="787"/>
         </scene>
     </scenes>
 </document>
